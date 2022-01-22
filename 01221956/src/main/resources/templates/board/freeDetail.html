@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상세 글보기</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style type="text/css">
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	background-image:
+		url(://img.allthatboots.com/edimg/2016-17-premier-league-sleeve-patch-2.png);
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+main {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 177px;
+}
+
+footer {
+	height: 177px;
+	position: relative;
+	transform: translateY(-100%);
+}
+</style>
+
+<script>
+	$(document).ready(function() {
+		var idx = $("#boardIdx").val();
+		/* 목록으로 */
+		$("#btn-list").on("click", function() {
+			location.href = "/teamTwo/free/";
+		});
+		/* 수정 */
+		$("#btn-edit").on("click", function() {
+			$("#method").val("PUT");
+			var frm = $("#frm")[0];
+			frm.action = "/teamTwo/free/" + idx;
+			frm.submit();
+		});
+		/* 삭제 */
+		$("#btn-del").on("click", function() {
+			$("#method").val("DELETE");
+			var frm = $("#frm")[0];
+			frm.action = "/teamTwo/free/" + idx;
+			frm.submit();
+		});
+
+		/* 관리자 삭제 버튼 */
+		$("#btn-delete").on("click", function() {
+			$("#method").val("DELETE");
+			var frm = $("#frm")[0];
+			frm.action = "/teamTwo/free/" + idx;
+			frm.submit();
+		});
+
+	});
+</script>
+</head>
+<body>
+
+	<header>
+		<div id="header" th:include="layout/header :: header"></div>
+	</header>
+	<main>
+		<form id="frm" method="POST">
+			<div class="container mt-5">
+				<div class="col-6 justify-content">
+					<h2 class="form-control-plaintext" id="title"
+						th:text="|제목:${board.title}|"></h2>
+					<hr style="height: 5px; color: red;">
+				</div>
+			</div>
+			<div class="container">
+
+
+
+				<div class="border p-4">
+					<div>
+						<input type="hidden" id="boardIdx" name="boardIdx"
+							th:value="${board.boardIdx}"> <input type="hidden"
+							id="creatorId" name="creatorId" th:value="${session.userId}">
+						<input type="hidden" id="method" name="_method">
+					</div>
+
+					<div class="border">
+						<div class="row">
+							<div class="col-4 mt-2">
+								<strong>
+									<div class="row">
+										<div class="mt-2 ms-5" th:text="|작성자:${board.creatorId}|"
+											id="created-dt">
+											<strong></strong>
+										</div>
+									</div>
+								</strong>
+							</div>
+							<div class="col-4">
+								<strong>
+									<div class="form-floating my-3">
+										<div th:text="|작성일:${board.createdDt}|" id="created-dt"></div>
+									</div>
+								</strong>
+							</div>
+							<div class="col-4">
+								<strong>
+									<div class="form-floating my-3">
+										<div th:text="|조회수:${board.hitCnt}|" id="hit-cnt"></div>
+									</div>
+								</strong>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="row container mx-auto"></div>
+						<div class="form-floating my-3 border">
+							<!-- <div class="col-1"></div> -->
+							<div class="card col-3 fluid mt-2"
+								th:each="files:${board.fileList}">
+								<img class="img-fluid" th:src="@{'/' + ${files.storedFilePath}}"
+									data-bs-target="@{'/' + ${files.storedFilePath}}">
+							</div>
+							<textarea rows="10" class="form-control-plaintext ms-3"
+								id="contents" name="contents" placeholder="내용을 입력해주세요."
+								th:text="${board.contents}"></textarea>
+						</div>
+					</div>
+
+					<!-- 첨부파일 -->
+					<div class="row my-3">
+						<div class="col">
+							<a th:each="file : ${board.fileList}"
+								th:href="@{/teamTwo/free/downloadFile(fileIdx=${file.fileIdx},boardIdx=${file.boardIdx})}"
+								th:text="|${file.originalFileName}(${file.fileSize} kb) |"></a>
+						</div>
+					</div>
+				</div>
+				<!-- 사진 뜨게 하는 거 -->
+
+
+				<div>
+					<hr style="height: 5px; color: red;">
+					<!-- 버튼 -->
+					<div class="clearfix my-3 mt-5 me-5">
+						<button type="button" class="btn btn-secondary float-start"
+							id="btn-list">목록으로</button>
+
+						<!-- 관리자 아이디로 로그인시에만 삭제 버튼이 뜨게 함 -->
+						<div th:if="${session.userId} == tester">
+							<button type="button"
+								class="btn btn-danger float-center me-5 ms-4" id="btn-delete">관리자
+								삭제</button>
+						</div>
+						<!-- 글작성한 아이디로 로그인시에만 삭제 수정 버튼이 뜨게 함 -->
+						<div th:if="${session.userId} == |${board.creatorId}|">
+							<button type="button" id="btn-del"
+								class="btn btn-danger float-end">
+								삭제 <span th:text="${board.boardIdx}" class="d-none"></span>
+							</button>
+							<button type="button" id="btn-edit"
+								class="btn btn-warning float-end">
+								수정 <span th:text="${board.boardIdx}" class="d-none"></span>
+							</button>
+						</div>
+					</div>
+
+					<!-- 버튼 끝 -->
+
+					<!-- 폼 끝-->
+		</form>
+		</div>
+		</div>
+	</main>
+	<footer>
+		<div id="footer" th:include="layout/footer :: footer"></div>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.NewsMapper">
+	<insert id="insertFileList" parameterType="com.bitc.dto.FileDto">
+		<![CDATA[ 
+			INSERT INTO file 
+				(news_idx, original_file_name, stored_file_path, file_size, creator_id, created_date)
+			VALUES 
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(#{item.newsIdx}, 
+			#{item.originalFileName}, 
+			#{item.storedFilePath}, 
+			#{item.fileSize}, 
+			'tester01', 
+			NOW())
+		</foreach>
+	</insert>
+
+	<select id="selectFileList" parameterType="int" resultType="com.bitc.dto.FileDto">
+		<![CDATA[
+			SELECT
+				file_idx, news_idx, original_file_name, stored_file_path,
+				FORMAT(ROUND(file_size / 1024), 0) AS file_size
+			FROM
+				file
+			WHERE	
+				file_idx = #{fileIdx}
+			AND
+				news_idx = #{newsIdx}
+			AND 
+				deleted_yn ='N';
+		]]>
+	</select>
+
+	<select id="selectFileInfo" parameterType="map" resultType="com.bitc.dto.FileDto">
+		<![CDATA[ 
+			SELECT 
+				original_file_name, stored_file_path, file_size
+			FROM 
+				file
+			WHERE 
+				news_idx = #{fileIdx}
+			AND 
+				deleted_yn ='N';
+		]]>
+
+	</select>
+
+	<select id="selectNewsPhotoList" parameterType="int" resultType="com.bitc.dto.FileDto">
+		<![CDATA[
+			SELECT
+				file_idx, news_idx, original_file_name, stored_file_path,
+				FORMAT(ROUND(file_size / 1024), 0) AS file_size
+
+			FROM
+				file
+			WHERE
+				news_idx = #{newsIdx};
+		]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitc.mapper.HighlightMapper">
+	<select id="openHighlightList" resultType="com.bitc.dto.HighlightDto">
+		<![CDATA[ 
+		select * 
+		from 
+			highlight 
+		where 
+			deleted_yn='N';
+	]]>
+	</select>
+	<insert id="insertHighlight" parameterType="com.bitc.dto.HighlightDto">
+		<![CDATA[ 
+		insert 
+			into 
+		highlight
+			(highlight_title, highlight_contents, highlight_url)
+		value
+			(#{highlightTitle}, #{highlightContents}, #{highlightUrl});
+			
+	]]>
+	</insert>
+	<select id="openHighlightDetail" parameterType="int" resultType="com.bitc.dto.HighlightDto">
+		<![CDATA[ 
+	select *
+	from
+		highlight
+	where
+		highlight_idx=#{highlightIdx}
+	and
+		deleted_yn='N'
+]]>
+	</select>
+
+	<update id="updateHighlight" parameterType="com.bitc.dto.HighlightDto">
+		<![CDATA[ 
+	update 
+			highlight
+		set 
+			highlight_title=#{highlightTitle}, highlight_contents=#{highlightContents},
+			 highlight_url=#{highlightUrl}
+		where
+			 highlight_idx=#{highlightIdx}
+]]>
+	</update>
+	<update id="deleteHighlight" parameterType="int">
+		<![CDATA[ 
+	update 
+			highlight
+		set 
+			deleted_yn='Y'
+		where
+			 highlight_idx=#{highlightIdx}
+]]>
+	</update>
+</mapper>

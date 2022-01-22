@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>헤더</title>
+<style>
+/* .a{
+font-style:italic;
+font-size:larger;
+} */
+</style>
+</head>
+<header th:fragment="header">
+	<nav
+		class="navbar navbar-expand-sm navbar-dark px-3 text-dark border-bottom"
+		style="font-weight: bold; border: 2px">
+		<!-- 아스널 자리에 아스널 로고 올리기 -->
+		<a href="/teamTwo/main" class="navbar-brand "><img alt=""
+			src="/logo/logo.png"></a>
+
+		<div class="text-start justify-content-start ">
+			<!-- 로그인과 관련 없는 기본  -->
+			<a href="/news/newsList"
+				class="text-black me-4 mt-5 text-decoration-none">News</a> <a
+				href="/video/highlight"
+				class="text-black me-4 mt-5 text-decoration-none">Highlight</a> <a
+				href="/team2/teams"
+				class="text-black me-4 mt-5 text-decoration-none">Teams</a> <a
+				href="/team2/tables"
+				class="text-black me-4 mt-5 text-decoration-none">Rank</a> <a
+				href="/goods/main" class="text-black me-4 mt-5 text-decoration-none">Goods</a>
+
+			<!-- 로그인전에는 클릭 되지 않고 로그인 후에 클릭 가능 -->
+			<a th:if="${session.userId} != null" th:href="@{/teamTwo/free}"
+				class="text-black me-4 mt-5 text-decoration-none"> FreeBoard</a> <a
+				class="text-black mt-5 me-4 text-decoration-none"
+				th:unless="${session.userId} != null">FreeBoard</a>
+
+		</div>
+
+		<div class="text-start justify-content-start ms-auto">
+ 			<!-- 로그인 후th:if="${session.userId} == tester" -->
+<!-- 			<a href="/teamTwo/userList"
+				class="text-black me-4 mt-5 text-decoration-none">회원관리</a>  -->
+			<!-- 로그인 후 -->
+			<a href="/teamTwo/myPage" th:if="${session.userId} != null"
+				class="text-black me-4 mt-5 text-decoration-none" th:text="|${session.userId}님 반갑습니다⚽|" ></a>
+			<!-- 로그인 전-->
+			<a class="text-black me-4 mt-5 text-decoration-none"
+				th:unless="${session.userId} != null" th:text="log-in"
+				th:href="@{/teamTwo/login}"></a>
+
+			<!-- 로그인 후 -->
+			<a class="text-black me-4 mt-5 text-decoration-none"
+				th:if="${session.userId} != null" th:text="log-out"
+				th:href="@{/teamTwo/logout}"></a>
+		</div>
+	</nav>
+</header>
+</html>

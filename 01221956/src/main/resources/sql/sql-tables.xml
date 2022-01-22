@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.TableMapper">
+	
+	<select id="selectTableDetail" resultType="com.bitc.dto.TableDto">
+		<![CDATA[
+			SELECT team_rank, team_name, matches_played, wins, draws, losses, goals_scored, losses_scored, goal_difference, get_point
+			FROM epltables
+			WHERE season = #{season}
+            order by team_rank
+		]]>
+	</select>
+	
+
+</mapper>

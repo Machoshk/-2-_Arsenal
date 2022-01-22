@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.NewsMapper">
+	<select id="selectNewsList" resultType="com.bitc.dto.NewsDto">
+		<![CDATA[
+		SELECT
+			news_idx, news_title, news_contents
+		FROM
+			news
+		WHERE
+			deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<select id="selectNewsDetail" parameterType="int" resultType="com.bitc.dto.NewsDto">
+		<![CDATA[
+			SELECT
+				news_idx, news_title, news_contents
+			FROM
+				news
+			WHERE
+				news_idx = #{newsIdx}
+		]]>
+	</select>
+	<insert id="insertNews" parameterType="com.bitc.dto.NewsDto" useGeneratedKeys="true" keyProperty="newsIdx">
+		<![CDATA[
+			INSERT INTO news
+				(news_idx, news_title, news_contents)
+			VALUES
+				(#{newsIdx}, #{newsTitle}, #{newsContents})
+		]]>
+	</insert>
+	<!--뉴스 글 수정 -->
+	<update id="updateNews" parameterType="com.bitc.dto.NewsDto">
+		<![CDATA[ 
+  			UPDATE 
+  			 	news
+		 	SET 
+		 		news_title = #{newsTitle}, news_contents = #{newsContents}
+			WHERE 
+				news_idx = #{newsIdx}
+
+		]]>
+	</update>
+	<!-- 뉴스 글 삭제 -->
+	<update id="deleteNews" parameterType="int">
+		<![CDATA[
+			UPDATE
+				news
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				news_idx = #{newsIdx}
+		]]>
+	</update>
+</mapper>

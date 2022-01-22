@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>News</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Martel:wght@900&family=Ubuntu:ital,wght@1,300&display=swap"
+	rel="stylesheet">
+<style>
+#zoom img {
+	transition: all 0.2s linear;
+	opacity: 0.7;
+}
+
+
+.card-body {
+	background: rgb(248, 248, 255);
+}
+
+#zoom:hover img {
+	transform: scale(1.02);
+	cursor: pointer;
+	opacity: 1;
+}
+
+
+.card {
+	border: solid 3px rgb(165, 42, 42);
+	padding: 1px;
+	color: rgb(248, 248, 255);
+}
+
+.table {
+	border: solid 3px rgb(165, 42, 42);
+	border-radius: 15px;
+}
+
+/* .carousel {
+	border: solid 3px rgb(165, 42, 42);
+	border-radius: 15px;
+} */
+.img {
+	border-radius: 15px;
+}
+
+.card-title {
+	color: rgb(165, 42, 42);
+	font-weight: bold;
+	text-align: center;
+}
+
+/* .carousel-caption:hover {
+	text-align: center;
+	color: red;
+} */
+td a {
+	color: black;
+	font-weight: bold;
+}
+
+td a:hover {
+	text-decoration: underline;
+	line-height: 1.2;
+	font-weight: 700;
+	background-image: linear-gradient(transparent calc(100% - 3px), #000 3px);
+	background-repeat: no-repeat;
+	background-size: 0% 100%;
+	transition: background-size 0.8s;
+	color: rgb(165, 42, 42);
+}
+
+*::selection {
+	background-color: rgb(255, 255, 128);
+}
+
+.h1 {
+	font-weight: bold;
+	color: rgb(165, 42, 42);
+}
+
+.h3 {
+	color: rgb(165, 42, 42);
+}
+
+#title {
+	font-family: 'Martel', serif;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div id="header" th:include="layout/header :: header"></div>
+	</header>
+	<div class="container mt-5">
+		<div class="row rounded-3">
+			<div class="col-sm ">
+				<h4 class="text-center display-3 mt-5 mb-5" id="title">Latest
+					Arsenal News</h4>
+			</div>
+		</div>
+	</div>
+	<main class="container mt-5">
+		<div>
+			<!-- 			<h1 class="mt-5 mb-3">Latest Arsenal News</h1> -->
+		</div>
+		<div id="carouselExampleIndicators" class="carousel slide"
+			data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="0" class="active" aria-current="true"
+					aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleIndicators"
+					data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				<div class="carousel-item active" id="zoom">
+					<a href="/news/openListDetail?newsIdx=10" class="rounded"> <img
+						src="https://cdn.interfootball.co.kr/news/photo/202201/554299_474242_3042.jpg"
+						class="d-block w-100 rounded" alt="arsenal" width="800px"
+						height="800px"></a>
+					<div class="carousel-caption d-none d-md-block mb-5">
+						<h1 class="display-5"
+							style="font-weight: bold; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: black">윌셔
+							“아스널, 우승 가능”</h1>
+						<h3
+							style="font-weight: bold; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: black">잭
+							윌셔가 ‘친정팀’ 아스널이 향후 정상에 오를 수 있으리라 전망했다.</h3>
+
+					</div>
+				</div>
+				<div class="carousel-item">
+					<a href="/news/openListDetail?newsIdx=8" id="zoom"> <img
+						src="https://cdn.spotvnews.co.kr/news/photo/202201/500587_700720_1452.jpg"
+						class="d-block w-100" alt="arsenal" width="800px" height="800px"></a>
+					<div class="carousel-caption d-none d-md-block mb-5">
+						<h1 class="display-5"
+							style="font-weight: bold; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: black">‘아스널vs토트넘’의
+							3차 풀백 대전... 21세 유망주 타깃</h1>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<a href="/news/openListDetail?newsIdx=7" id="zoom"> <img
+						src="https://cdn.spotvnews.co.kr/news/photo/202201/500619_700761_4454.jpg"
+						class="d-block w-100" alt="arsenal" width="800px" height="800px"></a>
+					<div class="carousel-caption d-none d-md-block mb-5">
+						<h1 class="display-5"
+							style="font-weight: bold; -webkit-text-stroke-width: 0.5px; -webkit-text-stroke-color: black">'21살에
+							PL 최고 수준의 연봉 받는다'…아스널, 영입 준비 완료</h1>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		<div class="container mt-5">
+			<div>
+				<h1 class="mt-5 mb-3 " id="title">More news...</h1>
+			</div>
+			<div class="row row-cols-1 row-cols-md-2 g-4">
+
+				<div class="col">
+					<div class="card">
+						<a href="/news/openListDetail?newsIdx=2" id="zoom"> <img
+							src="https://img.sbs.co.kr/newimg/news/20220110/201626570_1280.jpg"
+							class="d-block w-100" alt="arsenal" width="200" height="250"></a>
+						<div class="card-body">
+							<h5 class="card-title">아스날, FA컵 64강 탈락…2부리그 노팅엄에 0대 1 충격패</h5>
+							<p class="card-text">아스날 영국 노팅엄의 시티 그라운드에서 열린....</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<div class="card-img-top">
+							<a href="/news/openListDetail?newsIdx=3" id="zoom"> <img
+								src="https://images.chosun.com/resizer/c61EaLQqBmSeKYm1ivZvaX7KpC0=/530x661/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/WBFQOMLA3IH6VU3T6547VA22FQ.jpg"
+								class="d-block w-100" alt="arsenal" width="200" height="250"></a>
+						</div>
+						<div class="card-body">
+							<h5 class="card-title">'멀티골' 마르티넬리, 아스날 역사상 7,000번째 골 기록</h5>
+							<p class="card-text">가브리엘 마르티넬리(20, 아스날)가 아스날 역사상 7,000번째 득점을
+								기록했다..</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<a href="/news/openListDetail?newsIdx=11" id="zoom"> <img
+							src="https://images.chosun.com/resizer/02pdWhuVqqeh2lBV6fVbonZ5uZU=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/7HOI3JDTCTZU4QDHGZBWNRKFME.jpg"
+							class="d-block w-100" alt="arsenal" width="200" height="250"></a>
+						<div class="card-body">
+							<h5 class="card-title">아스날과 전투도 불사.. 토트넘, 2000년생 신성 RB 열망</h5>
+							<p class="card-text">토트넘이 2000년생 라이트백 유망주에 관심을 기울이고 있다..</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<a href="/news/openListDetail?newsIdx=5" id="zoom"> <img
+							src="http://image.mediapen.com/news/202201/news_691966_1641509265_m.jpg"
+							class="d-block w-100" alt="arsenal" width="200" height="250"></a>
+						<div class="card-body">
+							<h5 class="card-title">오바메양, '노마스크 파티 후 코로나 확진'</h5>
+							<p class="card-text">피에르-에메릭 오바메양(33·아스날)이 소속팀 아스날을 벗어나서도...</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<a href="/news/openListDetail?newsIdx=6" id="zoom"> <img
+							src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AASOuD7.img?h=252&w=378&m=6&q=60&o=f&l=f"
+							class="d-block w-100" alt="arsenal" width="200" height="250"></a>
+						<div class="card-body">
+							<h5 class="card-title">또 연기된 토트넘 경기, 아스날 선수 부족→북런던 더비 취소</h5>
+							<p class="card-text">아스날의 선수 부족을 이유로 결국 연기됐다....</p>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<a href="/news/openListDetail?newsIdx=9" id="zoom"> <img
+							src="https://cdn.interfootball.co.kr/news/photo/202201/556127_476526_1649.jpg"
+							class="d-block w-100" alt="arsenal" width="200" height="250"></a>
+						<div class="card-body">
+							<h5 class="card-title">'북런던 더비' 연기 했던 아스널...리버풀 전 앞두고 '5명'
+								복귀</h5>
+							<p class="card-text">기존 7일과 14일 치러져야 했던 준결승전은 14일과 21일로 변경됐다.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+			<br> <br> <br>
+
+			<!-- <div class="container mt-5">
+<div class="row mb-2">
+  <div class="col-md-6">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2 text-primary">World</strong>
+        <h3 class="mb-0">Featured post</h3>
+        <div class="mb-1 text-muted">Nov 12</div>
+        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="stretched-link">Continue reading</a>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <img src="https://www.arsenal.com/sites/default/files/styles/large_16x9/public/images/Report_3.jpg?itok=3WDXUiXV" class="d-block w-100" alt="arsenal" width="200" height="250">
+      </div>
+    </div>
+    </div>
+</div> -->
+
+			<!-- <div class="row mb-2">
+  <div class="col-md-6">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2 text-primary">World</strong>
+        <h3 class="mb-0">Featured post</h3>
+        <div class="mb-1 text-muted">Nov 12</div>
+        <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="stretched-link">Continue reading</a>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+      </div>
+    </div>
+    </div>
+</div>
+  </div> -->
+
+
+			<!-- 		<div class="col-sm mx-auto">
+			<table class="table table-hover   text-center"
+				style="background: rgb(248, 248, 255)">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>뉴스 제목</th>
+						<th>뉴스 내용</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${#lists.size(newsList)} > 0"
+						th:each="item : ${newsList}">
+						<td th:text="${item.newsIdx}"></td>
+						<td><a href="/news/openListDetail?newsIdx="
+							th:attrappend="href=${item.newsIdx}" th:text="${item.newsTitle}"
+							class="text-decoration-none"></a></td>
+						<td th:text="${item.newsContents}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div> -->
+			<div class="d-flex justify-content-end ">
+				<div >
+					<a href="/news/newsListTwo" class="btn btn-danger me-3">목록</a>
+				</div>
+	
+				<!-- 관리자로 로그인시에만 작성버튼 보이게  -->
+				<div th:if="${session.userId}==tester ">
+					<a href="/news/newsWrite" class="btn btn-info ">작성</a>
+				</div>
+			</div>
+	</main>
+
+	<footer>
+		<div id="footer" th:include="layout/footer :: footer"></div>
+	</footer>
+</body>
+</html>
